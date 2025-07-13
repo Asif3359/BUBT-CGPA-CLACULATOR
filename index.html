@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>University CGPA Calculator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .grade-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .grade-table th, .grade-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        .grade-table th {
+            background-color: #f2f2f2;
+        }
+        .course-row:hover {
+            background-color: #f5f5f5;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold text-center text-blue-800 mb-6">University CGPA Calculator</h1>
+        
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-xl font-semibold text-gray-800 mb-4">Grading System</h2>
+            <div class="overflow-x-auto">
+                <table class="grade-table">
+                    <thead>
+                        <tr>
+                            <th>Numerical Grade</th>
+                            <th>Letter Grade</th>
+                            <th>Grade Point</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>80% and above</td>
+                            <td>A+</td>
+                            <td>4.00</td>
+                        </tr>
+                        <tr>
+                            <td>75% to less than 80%</td>
+                            <td>A</td>
+                            <td>3.75</td>
+                        </tr>
+                        <tr>
+                            <td>70% to less than 75%</td>
+                            <td>A-</td>
+                            <td>3.50</td>
+                        </tr>
+                        <tr>
+                            <td>65% to less than 70%</td>
+                            <td>B+</td>
+                            <td>3.25</td>
+                        </tr>
+                        <tr>
+                            <td>60% to less than 65%</td>
+                            <td>B</td>
+                            <td>3.00</td>
+                        </tr>
+                        <tr>
+                            <td>55% to less than 60%</td>
+                            <td>B-</td>
+                            <td>2.75</td>
+                        </tr>
+                        <tr>
+                            <td>50% to less than 55%</td>
+                            <td>C+</td>
+                            <td>2.50</td>
+                        </tr>
+                        <tr>
+                            <td>45% to less than 50%</td>
+                            <td>C</td>
+                            <td>2.25</td>
+                        </tr>
+                        <tr>
+                            <td>40% to less than 45%</td>
+                            <td>D</td>
+                            <td>2.00</td>
+                        </tr>
+                        <tr>
+                            <td>Less than 40%</td>
+                            <td>F</td>
+                            <td>0.00</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-xl font-semibold text-gray-800 mb-4">Semester GPA Calculator</h2>
+            <div id="courses-container">
+                <div class="course-row grid grid-cols-12 gap-4 mb-4 items-center">
+                    <div class="col-span-5">
+                        <input type="text" placeholder="Course Name" class="course-name w-full px-3 py-2 border rounded">
+                    </div>
+                    <div class="col-span-2">
+                        <select class="letter-grade w-full px-3 py-2 border rounded">
+                            <option value="4.00">A+</option>
+                            <option value="3.75">A</option>
+                            <option value="3.50">A-</option>
+                            <option value="3.25">B+</option>
+                            <option value="3.00">B</option>
+                            <option value="2.75">B-</option>
+                            <option value="2.50">C+</option>
+                            <option value="2.25">C</option>
+                            <option value="2.00">D</option>
+                            <option value="0.00">F</option>
+                        </select>
+                    </div>
+                    <div class="col-span-2">
+                        <input type="number" placeholder="Credit Hours" min="0.5" step="0.5" class="credit-hours w-full px-3 py-2 border rounded">
+                    </div>
+                    <div class="col-span-2">
+                        <span class="grade-points">0.00</span>
+                    </div>
+                    <div class="col-span-1">
+                        <button class="remove-course bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600">×</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flex justify-between mt-4">
+                <button id="add-course" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Add Course</button>
+                <button id="calculate-gpa" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Calculate GPA</button>
+            </div>
+            
+            <div id="result" class="mt-6 p-4 bg-gray-50 rounded hidden">
+                <h3 class="font-semibold text-lg mb-2">Results</h3>
+                <p>Total Credit Hours: <span id="total-credits">0</span></p>
+                <p>Total Grade Points: <span id="total-grade-points">0.00</span></p>
+                <p class="font-bold">GPA: <span id="gpa">0.00</span></p>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <h2 class="text-xl font-semibold text-gray-800 mb-4">CGPA Calculator (Multiple Semesters)</h2>
+            <div id="semesters-container">
+                <div class="semester-row mb-6 p-4 border rounded">
+                    <h3 class="font-medium mb-3">Semester 1</h3>
+                    <div class="grid grid-cols-2 gap-4 mb-3">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Total Credit Hours</label>
+                            <input type="number" class="semester-credits w-full px-3 py-2 border rounded" min="0" step="0.5">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">GPA</label>
+                            <input type="number" class="semester-gpa w-full px-3 py-2 border rounded" min="0" max="4" step="0.01">
+                        </div>
+                    </div>
+                    <button class="remove-semester bg-red-500 text-white px-2 py-1 rounded text-sm hover:bg-red-600">Remove Semester</button>
+                </div>
+            </div>
+            
+            <div class="flex justify-between mt-4">
+                <button id="add-semester" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Add Semester</button>
+                <button id="calculate-cgpa" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Calculate CGPA</button>
+            </div>
+            
+            <div id="cgpa-result" class="mt-6 p-4 bg-gray-50 rounded hidden">
+                <h3 class="font-semibold text-lg mb-2">CGPA Results</h3>
+                <p>Total Credit Hours: <span id="cgpa-total-credits">0</span></p>
+                <p class="font-bold">CGPA: <span id="cgpa">0.00</span></p>
+            </div>
+        </div>
+
+        <div class="mt-8 bg-white rounded-lg shadow-md p-6">
+            <h2 class="text-xl font-semibold text-gray-800 mb-4">Policy Information</h2>
+            <div class="space-y-4">
+                <div>
+                    <h3 class="font-medium text-gray-700">F Grade Policy:</h3>
+                    <p class="text-gray-600">For 'F' grade holders, the course must be repeated within the next 3 consecutive semesters but prerequisite course/s should be repeated on priority basis. Scorers of 'F' grade shall have to pay full fee for the retake course/courses.</p>
+                </div>
+                <div>
+                    <h3 class="font-medium text-gray-700">Grade Improvement Policy:</h3>
+                    <p class="text-gray-600">For improvement of grade in any course, the incumbent student may be allowed to repeat for improvement in that course. However, if any student wishes to take this privilege, he/she has to submit an application through proper channel at least within 2 weeks after publication of result of a particular semester.</p>
+                    <p class="text-gray-600 mt-2">The improved grade will be computed in the final transcript and the previous grade/s (i.e. 'F' or any other grade of the improver) will be marked with 'R' grade (as retake of the course) which has no effect on GPA or CGPA. For improvement of grade, the student has to register the course as usual by paying the half tuition fee (i.e. credit hour basis).</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // GPA Calculator
+            const coursesContainer = document.getElementById('courses-container');
+            const addCourseBtn = document.getElementById('add-course');
+            const calculateGpaBtn = document.getElementById('calculate-gpa');
+            const resultDiv = document.getElementById('result');
+            
+            // CGPA Calculator
+            const semestersContainer = document.getElementById('semesters-container');
+            const addSemesterBtn = document.getElementById('add-semester');
+            const calculateCgpaBtn = document.getElementById('calculate-cgpa');
+            const cgpaResultDiv = document.getElementById('cgpa-result');
+            
+            // Add initial course row
+            addCourseRow();
+            
+            // Add course row event
+            addCourseBtn.addEventListener('click', addCourseRow);
+            
+            // Calculate GPA event
+            calculateGpaBtn.addEventListener('click', calculateGpa);
+            
+            // Add semester event
+            addSemesterBtn.addEventListener('click', addSemesterRow);
+            
+            // Calculate CGPA event
+            calculateCgpaBtn.addEventListener('click', calculateCgpa);
+            
+            // Remove course row event (delegated)
+            coursesContainer.addEventListener('click', function(e) {
+                if (e.target.classList.contains('remove-course')) {
+                    if (document.querySelectorAll('.course-row').length > 1) {
+                        e.target.closest('.course-row').remove();
+                        calculateGpa(); // Recalculate if a course is removed
+                    } else {
+                        alert('You need at least one course.');
+                    }
+                }
+            });
+            
+            // Remove semester row event (delegated)
+            semestersContainer.addEventListener('click', function(e) {
+                if (e.target.classList.contains('remove-semester')) {
+                    if (document.querySelectorAll('.semester-row').length > 1) {
+                        e.target.closest('.semester-row').remove();
+                        updateSemesterNumbers();
+                    } else {
+                        alert('You need at least one semester.');
+                    }
+                }
+            });
+            
+            // Update grade points when grade or credit hours change (delegated)
+            coursesContainer.addEventListener('change', function(e) {
+                if (e.target.classList.contains('letter-grade') || e.target.classList.contains('credit-hours')) {
+                    const row = e.target.closest('.course-row');
+                    updateGradePoints(row);
+                }
+            });
+            
+            // Update grade points when credit hours change via keyboard (delegated)
+            coursesContainer.addEventListener('input', function(e) {
+                if (e.target.classList.contains('credit-hours')) {
+                    const row = e.target.closest('.course-row');
+                    updateGradePoints(row);
+                }
+            });
+            
+            // Function to add a new course row
+            function addCourseRow() {
+                const row = document.createElement('div');
+                row.className = 'course-row grid grid-cols-12 gap-4 mb-4 items-center';
+                row.innerHTML = `
+                    <div class="col-span-5">
+                        <input type="text" placeholder="Course Name" class="course-name w-full px-3 py-2 border rounded">
+                    </div>
+                    <div class="col-span-2">
+                        <select class="letter-grade w-full px-3 py-2 border rounded">
+                            <option value="4.00">A+</option>
+                            <option value="3.75">A</option>
+                            <option value="3.50">A-</option>
+                            <option value="3.25">B+</option>
+                            <option value="3.00">B</option>
+                            <option value="2.75">B-</option>
+                            <option value="2.50">C+</option>
+                            <option value="2.25">C</option>
+                            <option value="2.00">D</option>
+                            <option value="0.00">F</option>
+                        </select>
+                    </div>
+                    <div class="col-span-2">
+                        <input type="number" placeholder="Credit Hours" min="0.5" step="0.5" class="credit-hours w-full px-3 py-2 border rounded">
+                    </div>
+                    <div class="col-span-2">
+                        <span class="grade-points">0.00</span>
+                    </div>
+                    <div class="col-span-1">
+                        <button class="remove-course bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600">×</button>
+                    </div>
+                `;
+                coursesContainer.appendChild(row);
+            }
+            
+            // Function to update grade points for a row
+            function updateGradePoints(row) {
+                const gradeSelect = row.querySelector('.letter-grade');
+                const creditInput = row.querySelector('.credit-hours');
+                const gradePointsSpan = row.querySelector('.grade-points');
+                
+                const gradePoint = parseFloat(gradeSelect.value);
+                const creditHours = parseFloat(creditInput.value) || 0;
+                
+                const points = (gradePoint * creditHours).toFixed(2);
+                gradePointsSpan.textContent = points;
+            }
+            
+            // Function to calculate GPA
+            function calculateGpa() {
+                const courseRows = document.querySelectorAll('.course-row');
+                let totalCredits = 0;
+                let totalGradePoints = 0;
+                
+                courseRows.forEach(row => {
+                    const creditInput = row.querySelector('.credit-hours');
+                    const gradePointsSpan = row.querySelector('.grade-points');
+                    
+                    const creditHours = parseFloat(creditInput.value) || 0;
+                    const points = parseFloat(gradePointsSpan.textContent) || 0;
+                    
+                    totalCredits += creditHours;
+                    totalGradePoints += points;
+                });
+                
+                const gpa = totalCredits > 0 ? (totalGradePoints / totalCredits).toFixed(2) : 0;
+                
+                document.getElementById('total-credits').textContent = totalCredits.toFixed(1);
+                document.getElementById('total-grade-points').textContent = totalGradePoints.toFixed(2);
+                document.getElementById('gpa').textContent = gpa;
+                
+                resultDiv.classList.remove('hidden');
+            }
+            
+            // Function to add a new semester row
+            function addSemesterRow() {
+                const semesterCount = document.querySelectorAll('.semester-row').length + 1;
+                const row = document.createElement('div');
+                row.className = 'semester-row mb-6 p-4 border rounded';
+                row.innerHTML = `
+                    <h3 class="font-medium mb-3">Semester ${semesterCount}</h3>
+                    <div class="grid grid-cols-2 gap-4 mb-3">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Total Credit Hours</label>
+                            <input type="number" class="semester-credits w-full px-3 py-2 border rounded" min="0" step="0.5">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">GPA</label>
+                            <input type="number" class="semester-gpa w-full px-3 py-2 border rounded" min="0" max="4" step="0.01">
+                        </div>
+                    </div>
+                    <button class="remove-semester bg-red-500 text-white px-2 py-1 rounded text-sm hover:bg-red-600">Remove Semester</button>
+                `;
+                semestersContainer.appendChild(row);
+            }
+            
+            // Function to update semester numbers
+            function updateSemesterNumbers() {
+                const semesterRows = document.querySelectorAll('.semester-row');
+                semesterRows.forEach((row, index) => {
+                    row.querySelector('h3').textContent = `Semester ${index + 1}`;
+                });
+            }
+            
+            // Function to calculate CGPA
+            function calculateCgpa() {
+                const semesterRows = document.querySelectorAll('.semester-row');
+                let totalCredits = 0;
+                let totalWeightedGpa = 0;
+                
+                semesterRows.forEach(row => {
+                    const creditInput = row.querySelector('.semester-credits');
+                    const gpaInput = row.querySelector('.semester-gpa');
+                    
+                    const credits = parseFloat(creditInput.value) || 0;
+                    const gpa = parseFloat(gpaInput.value) || 0;
+                    
+                    totalCredits += credits;
+                    totalWeightedGpa += (gpa * credits);
+                });
+                
+                const cgpa = totalCredits > 0 ? (totalWeightedGpa / totalCredits).toFixed(2) : 0;
+                
+                document.getElementById('cgpa-total-credits').textContent = totalCredits.toFixed(1);
+                document.getElementById('cgpa').textContent = cgpa;
+                
+                cgpaResultDiv.classList.remove('hidden');
+            }
+        });
+    </script>
+</body>
+</html>
