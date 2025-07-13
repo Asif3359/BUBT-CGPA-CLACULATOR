@@ -21,14 +21,20 @@
         .course-row:hover {
             background-color: #f5f5f5;
         }
+        @media (max-width: 768px) {
+            .grade-table th, .grade-table td {
+                padding: 4px;
+                font-size: 0.875rem;
+            }
+        }
     </style>
 </head>
 <body class="bg-gray-100">
-    <div class="container mx-auto px-4 py-8">
-        <h1 class="text-3xl font-bold text-center text-blue-800 mb-6">University CGPA Calculator</h1>
+    <div class="container mx-auto px-4 py-8 max-w-6xl">
+        <h1 class="text-2xl md:text-3xl font-bold text-center text-blue-800 mb-6">University CGPA Calculator</h1>
         
-        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
-            <h2 class="text-xl font-semibold text-gray-800 mb-4">Grading System</h2>
+        <div class="bg-white rounded-lg shadow-md p-4 md:p-6 mb-8">
+            <h2 class="text-lg md:text-xl font-semibold text-gray-800 mb-4">Grading System</h2>
             <div class="overflow-x-auto">
                 <table class="grade-table">
                     <thead>
@@ -94,15 +100,15 @@
             </div>
         </div>
 
-        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
-            <h2 class="text-xl font-semibold text-gray-800 mb-4">Semester GPA Calculator</h2>
+        <div class="bg-white rounded-lg shadow-md p-4 md:p-6 mb-8">
+            <h2 class="text-lg md:text-xl font-semibold text-gray-800 mb-4">Semester GPA Calculator</h2>
             <div id="courses-container">
-                <div class="course-row grid grid-cols-12 gap-4 mb-4 items-center">
-                    <div class="col-span-5">
-                        <input type="text" placeholder="Course Name" class="course-name w-full px-3 py-2 border rounded">
+                <div class="course-row grid grid-cols-1 md:grid-cols-12 gap-2 md:gap-4 mb-4 items-center">
+                    <div class="md:col-span-5">
+                        <input type="text" placeholder="Course Name" class="course-name w-full px-3 py-2 border rounded text-sm md:text-base">
                     </div>
-                    <div class="col-span-2">
-                        <select class="letter-grade w-full px-3 py-2 border rounded">
+                    <div class="md:col-span-2">
+                        <select class="letter-grade w-full px-3 py-2 border rounded text-sm md:text-base">
                             <option value="4.00">A+</option>
                             <option value="3.75">A</option>
                             <option value="3.50">A-</option>
@@ -115,21 +121,21 @@
                             <option value="0.00">F</option>
                         </select>
                     </div>
-                    <div class="col-span-2">
-                        <input type="number" placeholder="Credit Hours" min="0.5" step="0.5" class="credit-hours w-full px-3 py-2 border rounded">
+                    <div class="md:col-span-2">
+                        <input type="number" placeholder="Credit Hours" min="0.5" step="0.5" class="credit-hours w-full px-3 py-2 border rounded text-sm md:text-base">
                     </div>
-                    <div class="col-span-2">
-                        <span class="grade-points">0.00</span>
+                    <div class="md:col-span-2">
+                        <span class="grade-points text-sm md:text-base">0.00</span>
                     </div>
-                    <div class="col-span-1">
-                        <button class="remove-course bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600">×</button>
+                    <div class="md:col-span-1">
+                        <button class="remove-course bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600 text-sm md:text-base">×</button>
                     </div>
                 </div>
             </div>
             
-            <div class="flex justify-between mt-4">
-                <button id="add-course" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Add Course</button>
-                <button id="calculate-gpa" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Calculate GPA</button>
+            <div class="flex flex-col sm:flex-row justify-between mt-4 gap-2">
+                <button id="add-course" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 text-sm md:text-base">Add Course</button>
+                <button id="calculate-gpa" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 text-sm md:text-base">Calculate GPA</button>
             </div>
             
             <div id="result" class="mt-6 p-4 bg-gray-50 rounded hidden">
@@ -140,12 +146,12 @@
             </div>
         </div>
 
-        <div class="bg-white rounded-lg shadow-md p-6">
-            <h2 class="text-xl font-semibold text-gray-800 mb-4">CGPA Calculator (Multiple Semesters)</h2>
+        <div class="bg-white rounded-lg shadow-md p-4 md:p-6">
+            <h2 class="text-lg md:text-xl font-semibold text-gray-800 mb-4">CGPA Calculator (Multiple Semesters)</h2>
             <div id="semesters-container">
                 <div class="semester-row mb-6 p-4 border rounded">
                     <h3 class="font-medium mb-3">Semester 1</h3>
-                    <div class="grid grid-cols-2 gap-4 mb-3">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-3">
                         <div>
                             <label class="block text-sm font-medium text-gray-700">Total Credit Hours</label>
                             <input type="number" class="semester-credits w-full px-3 py-2 border rounded" min="0" step="0.5">
@@ -159,9 +165,9 @@
                 </div>
             </div>
             
-            <div class="flex justify-between mt-4">
-                <button id="add-semester" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Add Semester</button>
-                <button id="calculate-cgpa" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Calculate CGPA</button>
+            <div class="flex flex-col sm:flex-row justify-between mt-4 gap-2">
+                <button id="add-semester" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 text-sm md:text-base">Add Semester</button>
+                <button id="calculate-cgpa" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 text-sm md:text-base">Calculate CGPA</button>
             </div>
             
             <div id="cgpa-result" class="mt-6 p-4 bg-gray-50 rounded hidden">
@@ -171,17 +177,17 @@
             </div>
         </div>
 
-        <div class="mt-8 bg-white rounded-lg shadow-md p-6">
-            <h2 class="text-xl font-semibold text-gray-800 mb-4">Policy Information</h2>
+        <div class="mt-8 bg-white rounded-lg shadow-md p-4 md:p-6">
+            <h2 class="text-lg md:text-xl font-semibold text-gray-800 mb-4">Policy Information</h2>
             <div class="space-y-4">
                 <div>
                     <h3 class="font-medium text-gray-700">F Grade Policy:</h3>
-                    <p class="text-gray-600">For 'F' grade holders, the course must be repeated within the next 3 consecutive semesters but prerequisite course/s should be repeated on priority basis. Scorers of 'F' grade shall have to pay full fee for the retake course/courses.</p>
+                    <p class="text-gray-600 text-sm md:text-base">For 'F' grade holders, the course must be repeated within the next 3 consecutive semesters but prerequisite course/s should be repeated on priority basis. Scorers of 'F' grade shall have to pay full fee for the retake course/courses.</p>
                 </div>
                 <div>
                     <h3 class="font-medium text-gray-700">Grade Improvement Policy:</h3>
-                    <p class="text-gray-600">For improvement of grade in any course, the incumbent student may be allowed to repeat for improvement in that course. However, if any student wishes to take this privilege, he/she has to submit an application through proper channel at least within 2 weeks after publication of result of a particular semester.</p>
-                    <p class="text-gray-600 mt-2">The improved grade will be computed in the final transcript and the previous grade/s (i.e. 'F' or any other grade of the improver) will be marked with 'R' grade (as retake of the course) which has no effect on GPA or CGPA. For improvement of grade, the student has to register the course as usual by paying the half tuition fee (i.e. credit hour basis).</p>
+                    <p class="text-gray-600 text-sm md:text-base">For improvement of grade in any course, the incumbent student may be allowed to repeat for improvement in that course. However, if any student wishes to take this privilege, he/she has to submit an application through proper channel at least within 2 weeks after publication of result of a particular semester.</p>
+                    <p class="text-gray-600 mt-2 text-sm md:text-base">The improved grade will be computed in the final transcript and the previous grade/s (i.e. 'F' or any other grade of the improver) will be marked with 'R' grade (as retake of the course) which has no effect on GPA or CGPA. For improvement of grade, the student has to register the course as usual by paying the half tuition fee (i.e. credit hour basis).</p>
                 </div>
             </div>
         </div>
@@ -259,13 +265,13 @@
             // Function to add a new course row
             function addCourseRow() {
                 const row = document.createElement('div');
-                row.className = 'course-row grid grid-cols-12 gap-4 mb-4 items-center';
+                row.className = 'course-row grid grid-cols-1 md:grid-cols-12 gap-2 md:gap-4 mb-4 items-center';
                 row.innerHTML = `
-                    <div class="col-span-5">
-                        <input type="text" placeholder="Course Name" class="course-name w-full px-3 py-2 border rounded">
+                    <div class="md:col-span-5">
+                        <input type="text" placeholder="Course Name" class="course-name w-full px-3 py-2 border rounded text-sm md:text-base">
                     </div>
-                    <div class="col-span-2">
-                        <select class="letter-grade w-full px-3 py-2 border rounded">
+                    <div class="md:col-span-2">
+                        <select class="letter-grade w-full px-3 py-2 border rounded text-sm md:text-base">
                             <option value="4.00">A+</option>
                             <option value="3.75">A</option>
                             <option value="3.50">A-</option>
@@ -278,14 +284,14 @@
                             <option value="0.00">F</option>
                         </select>
                     </div>
-                    <div class="col-span-2">
-                        <input type="number" placeholder="Credit Hours" min="0.5" step="0.5" class="credit-hours w-full px-3 py-2 border rounded">
+                    <div class="md:col-span-2">
+                        <input type="number" placeholder="Credit Hours" min="0.5" step="0.5" class="credit-hours w-full px-3 py-2 border rounded text-sm md:text-base">
                     </div>
-                    <div class="col-span-2">
-                        <span class="grade-points">0.00</span>
+                    <div class="md:col-span-2">
+                        <span class="grade-points text-sm md:text-base">0.00</span>
                     </div>
-                    <div class="col-span-1">
-                        <button class="remove-course bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600">×</button>
+                    <div class="md:col-span-1">
+                        <button class="remove-course bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600 text-sm md:text-base">×</button>
                     </div>
                 `;
                 coursesContainer.appendChild(row);
@@ -337,7 +343,7 @@
                 row.className = 'semester-row mb-6 p-4 border rounded';
                 row.innerHTML = `
                     <h3 class="font-medium mb-3">Semester ${semesterCount}</h3>
-                    <div class="grid grid-cols-2 gap-4 mb-3">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-3">
                         <div>
                             <label class="block text-sm font-medium text-gray-700">Total Credit Hours</label>
                             <input type="number" class="semester-credits w-full px-3 py-2 border rounded" min="0" step="0.5">
